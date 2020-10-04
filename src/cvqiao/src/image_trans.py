@@ -87,6 +87,23 @@ class Worker(threading.Thread):
                     a.points[j].z = 1
                 self.output_queue.put(a)
 
+            camera_matrix = np.array([[562, 0.000000, 480.5], [0.000000, 562, 360.5], [0.000000, 0.000000, 1.000000]])
+            dist_coeffs = np.array([0, 0, 0, 0, 0])
+            aruco_dict = aruco.Dictionary_get(aruco.DICT_ARUCO_ORIGINAL)
+            board_corners = [np.array([[0,-0.5,0.3],[0,-0.3,0.3],[0,-0.3,0.1],[0,-0.5,0.1]], dtype=np.float32),
+                             np.array([[0,-0.5,0.7],[0,-0.3,0.7],[0,-0.3,0.5],[0,-0.5,0.5]], dtype=np.float32),
+                             np.array([[0,-0.5,1.1],[0,-0.3,1.1],[0,-0.3,0.9],[0,-0.5,0.9]], dtype=np.float32),
+                             np.array([[0,-0.1,0.9],[0,0.1,0.9],[0,0.1,0.7],[0,-0.1,0.7]], dtype=np.float32),
+                             np.array([[0,0.3,0.3],[0,0.5,0.3],[0,0.5,0.1],[0,0.3,0.1]], dtype=np.float32),
+                             np.array([[0,0.3,0.7],[0,0.5,0.7],[0,0.5,0.5],[0,0.3,0.5]], dtype=np.float32),
+                             np.array([[0,0.3,1.1],[0,0.5,1.1],[0,0.5,0.9],[0,0.3,0.9]], dtype=np.float32)]
+            board_ids = np.array([0,1,2,3,4,5,6], dtype=np.int32)
+            board = aruco.Board_create(board_corners,
+                               aruco.getPredefinedDictionary(
+                               aruco.DICT_ARUCO_ORIGINAL),
+                               board_ids)
+            retval, rvec, tvec =   aruco.estimatePoseBoard(corners,ids, board, camera_matrix,dist_coeffs)
+
 
 aruco_dict = aruco.Dictionary_get(aruco.DICT_ARUCO_ORIGINAL)
 #aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
