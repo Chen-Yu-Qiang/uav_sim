@@ -27,7 +27,7 @@ def callback_Marker(data):
             x, y, z, th = getEachMean(last_t)
             if not (x, y, z, th) == (0, 0, 0, 0):
                 outmsg=PoseStamped()
-                #outmsg.header=marker_data[last_t][0].header
+                outmsg.header=marker_data[last_t][0].header
                 outmsg.pose.position.x=x
                 outmsg.pose.position.y=y
                 outmsg.pose.position.z=z

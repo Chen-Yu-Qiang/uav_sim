@@ -45,7 +45,7 @@ while not rospy.is_shutdown():
             refmsg.angular.z=np.pi
     elif m==1:
         if t==100:
-            m=0
+            m=2
             t=0.0
         else:
             t=t+1

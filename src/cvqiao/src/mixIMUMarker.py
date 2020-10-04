@@ -14,7 +14,7 @@ rospy.init_node('mix', anonymous=True)
 marker_mean = {"t": [], "x": [], "y": [], "z": []}
 imu_data = {"t": [], "x": [], "y": [], "z": []}
 last_t = None
-TIMELONG = 1
+TIMELONG = 2
 last_IMU = None
 px = rospy.get_param('~px0')
 py = rospy.get_param('~py0')
@@ -115,6 +115,7 @@ while not rospy.is_shutdown():
         y_Marker_sel = []
         z_Marker_sel = []
         for i in range(len(marker_mean_copy["t"])-1, 0, -1):
+            #print("i",i,marker_mean_copy["t"][-1]-imu_data_copy["t"][-1])
             if marker_mean_copy["t"][i] > imu_data_copy["t"][-1]-TIMELONG :
                 min_i = min(len(marker_mean_copy["x"]), len(
                     marker_mean_copy["y"]), len(marker_mean_copy["z"]))
@@ -126,6 +127,7 @@ while not rospy.is_shutdown():
             else:
                 break
         marker_N = len(x_Marker_sel)
+        print(marker_N)
     elif len(imu_data_copy["t"])>0:
         for i in range(len(imu_data_copy["t"])-1, 0, -1):
             if imu_data_copy["t"][i] >= imu_data_copy["t"][-1]-TIMELONG:
