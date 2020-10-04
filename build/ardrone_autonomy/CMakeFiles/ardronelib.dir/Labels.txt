@@ -1,0 +1,13 @@
+# Target labels
+ ardronelib
+# Source files and their labels
+/home/yuqiang/catkin_ws2/build/ardrone_autonomy/CMakeFiles/ardronelib
+/home/yuqiang/catkin_ws2/build/ardrone_autonomy/CMakeFiles/ardronelib.rule
+/home/yuqiang/catkin_ws2/build/ardrone_autonomy/CMakeFiles/ardronelib-complete.rule
+/home/yuqiang/catkin_ws2/devel/src/ardronelib-stamp/ardronelib-install.rule
+/home/yuqiang/catkin_ws2/devel/src/ardronelib-stamp/ardronelib-mkdir.rule
+/home/yuqiang/catkin_ws2/devel/src/ardronelib-stamp/ardronelib-download.rule
+/home/yuqiang/catkin_ws2/devel/src/ardronelib-stamp/ardronelib-update.rule
+/home/yuqiang/catkin_ws2/devel/src/ardronelib-stamp/ardronelib-patch.rule
+/home/yuqiang/catkin_ws2/devel/src/ardronelib-stamp/ardronelib-configure.rule
+/home/yuqiang/catkin_ws2/devel/src/ardronelib-stamp/ardronelib-build.rule

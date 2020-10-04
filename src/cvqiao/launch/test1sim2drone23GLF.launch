@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<launch> 
+    <!--<node pkg="image_transport" type="republish" name="republish" output="screen" args="h264 in:=/tello/image_raw raw out:=/tello_raw"/>-->
+    <arg name="px_init" default="0" />
+    <arg name="py_init" default="0" />
+    <arg name="pz_init" default="0" />
+    <remap from="tello_raw" to="ardrone/front/image_raw" />
+
+    <node pkg="cvqiao" type="tf_topic.py" name="tf_topic" output="screen"/>
+    <node pkg="cvqiao" type="image_trans.py" name="image_trans" output="screen"/>
+    <node pkg="cvqiao" type= "findRt.py" name="findRt10" output="screen">
+      <param name="theID" type="int" value="10"/>
+      <param name="p1x" type="double" value="0"/>
+      <param name="p1y" type="double" value="-0.27"/>
+      <param name="p1z" type="double" value="0.12"/>
+      <param name="p2x" type="double" value="0"/>
+      <param name="p2y" type="double" value="-0.03"/>
+      <param name="p2z" type="double" value="0.12"/>
+      <param name="p3x" type="double" value="0"/>
+      <param name="p3y" type="double" value="-0.03"/>
+      <param name="p3z" type="double" value="-0.12"/>
+      <param name="p4x" type="double" value="0"/>
+      <param name="p4y" type="double" value="-0.27"/>
+      <param name="p4z" type="double" value="-0.12"/>
+    </node>
+    <node pkg="cvqiao" type= "findRt.py" name="findRt11" output="screen">
+      <param name="theID" type="int" value="11"/>
+      <param name="p1x" type="double" value="0"/>
+      <param name="p1y" type="double" value="0.03"/>
+      <param name="p1z" type="double" value="0.12"/>
+      <param name="p2x" type="double" value="0"/>
+      <param name="p2y" type="double" value="0.27"/>
+      <param name="p2z" type="double" value="0.12"/>
+      <param name="p3x" type="double" value="0"/>
+      <param name="p3y" type="double" value="0.27"/>
+      <param name="p3z" type="double" value="-0.12"/>
+      <param name="p4x" type="double" value="0"/>
+      <param name="p4y" type="double" value="0.03"/>
+      <param name="p4z" type="double" value="-0.12"/>
+    </node>
+    <node pkg="cvqiao" type="imuint.py" name="imuint" output="screen">
+      <param name="px0" type="double" value="$(arg px_init)"/>
+      <param name="py0" type="double" value="$(arg py_init)"/>
+      <param name="pz0" type="double" value="$(arg pz_init)"/>
+    </node>
+    <node pkg="cvqiao" type="mixMarker.py" name="mixMarker" output="screen"/>
+    <node pkg="cvqiao" type="mixIMUMarker.py" name="mixIMUMarker" output="screen">
+      <param name="px0" type="double" value="$(arg px_init)"/>
+      <param name="py0" type="double" value="$(arg py_init)"/>
+      <param name="pz0" type="double" value="$(arg pz_init)"/>    
+    </node>
+
+
+    <node pkg="cvqiao" type="controlTello.py" name="controlTello" />
+    <!--<node pkg="cvqiao" type="genRef.py" name="genRef" output="screen"/>
+    <node pkg="cvqiao" type="controlUAV.py" name="controlUAV" output="screen" launch-prefix="xterm -geometry 150x20+0+0 -e" />-->
+    <node pkg="cvqiao" type="getErr.py" name="getErr" output="screen"/>
+
+  <!-- ArUco mapping
+  <node pkg="aruco_mapping" type="aruco_mapping" name="aruco_mapping" output="screen">
+    <param name="image_transport" type="string" value="h264"/>
+    <param name="calibration_file" type="string" value="$(find aruco_mapping)/data/tello.ini" /> 
+    <param name="num_of_markers" type="int" value="8" />
+    <param name="marker_size" type="double" value="0.2"/>
+    <param name="space_type" type="string" value="3Dspace" />
+    <param name="roi_allowed" type="bool" value="false" /> 
+    <param name="roi_x" type="int" value="0" /> 
+    <param name="roi_y" type="int" value="0" /> 
+    <param name="roi_width" type="int" value="960" /> 
+    <param name="roi_height" type="int" value="720" />
+  </node>  
+  <node pkg="aruco_mapping" type="get_org_UAV.py" name="get_org_UAV" output="screen"/>
+  <node pkg="aruco_mapping" type="pose2poseStamped.py" name="pose2poseStamped" output="screen" launch-prefix="xterm -geometry 150x20+0+30 -e" />
+  <node pkg="aruco_mapping" type="give_ref.py" name="give_ref" output="screen"/>
+  <node pkg="aruco_mapping" type="controlUAV.py" name="controlUAV" output="screen" launch-prefix="xterm -geometry 150x20+0+0 -e" />
+  <node pkg="aruco_mapping" type="controlVel.py" name="controlVel" output="screen" /> -->
+</launch>

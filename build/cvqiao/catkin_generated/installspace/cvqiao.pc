@@ -1,0 +1,8 @@
+prefix=/home/yuqiang/catkin_ws2/install
+
+Name: cvqiao
+Description: Description of cvqiao
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
