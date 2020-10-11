@@ -37,6 +37,10 @@ def cb_updata_ref(data):
     ref_y = data.linear.y
     ref_z = data.linear.z
     ref_t = data.angular.z
+    if ref_t<0:
+        ref_t=ref_t+2*np.pi
+    if ref_t>2*np.pi:
+        ref_t=ref_t-2*np.pi
 
 
 def cb_updata_err(data):

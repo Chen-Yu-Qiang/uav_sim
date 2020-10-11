@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!--<arg name="world_name" value="$(find cvg_sim_gazebo)/worlds/markerworld2.world"/> -->
+    </include>
+
+    <group ns="drone1">
+        <include file="$(find cvqiao)/launch/test1sim.launch">
+            <arg name="px_init" value="0"/>
+            <arg name="py_init" value="0"/>
+            <arg name="pz_init" value="0"/>
+        </include>
+        <node pkg="cvqiao" type="genFront8wordRef.py" name="genRef" output="screen"/>
+        <node pkg="cvqiao" type="controlUAV.py" name="controlUAV" output="screen" launch-prefix="xterm -geometry 150x20+0+0 -e" />
+        <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
+            <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_with_sensors.urdf.xacro"/>
+            <arg name="model_name" value="drone1"/>
+            <arg name="x" value="0"/>
+            <arg name="y" value="0"/>
+            <arg name="z" value="0"/>
+            <arg name="tf_prefix" value="/drone1"/>
+            <arg name="namespace" value="/drone1"/>
+        </include>
+	
+    <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="str_log /gazebo/model_states cmd_vel err cmd_world mixIMUMarker mixMarker genRef from_IMU tello/odom mixMarkerSTD marker_0 marker_1 marker_2 marker_3 marker_4 marker_5 marker_6 cam_from_all_marker cam_from_marker_0 cam_from_marker_1 cam_from_marker_2 cam_from_marker_3 cam_from_marker_4 cam_from_marker_5 cam_from_marker_6 -o drone1"/>
+
+    </group>
+
+</launch>

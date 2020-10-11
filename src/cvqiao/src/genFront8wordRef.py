@@ -29,42 +29,43 @@ while not rospy.is_shutdown():
             t=0.0
         else:
             t=t+1
-            leader.linear.x=4
+            leader.linear.x=0
             leader.linear.y=0
             leader.linear.z=1
-            leader.angular.z=0
+            leader.angular.z=-np.pi/4
     elif m==1:
         if t==200:
-            continue
-            m=0
+            m=2
             t=0.0
         else:
             t=t+1
-            theta=(t/200.0)*(2*np.pi)*0.25
-            leader.linear.x=4+10*np.sin(theta)
-            leader.linear.y=-10*np.cos(theta)+10
+            a=t/200.0*np.pi/2-np.pi/4
+            leader.linear.x=10*np.sqrt(np.cos(2*a))*np.cos(a)
+            leader.linear.y=10*np.sqrt(np.cos(2*a))*np.sin(a)
             leader.linear.z=1
-            leader.angular.z=theta
+            leader.angular.z=np.arctan2(np.cos(3*a)/np.sqrt(np.cos(2*a)), -np.sin(3*a)/np.sqrt(np.cos(2*a)))
+        
     elif m==2:
-        if t==200:
-            m=0
+        if t==199:
+            m=3
             t=0.0
         else:
             t=t+1
-            leader.linear.x=4
-            leader.linear.y=0
+            a=-t/200.0*np.pi/2+5*np.pi/4
+            leader.linear.x=10*np.sqrt(np.cos(2.0*a))*np.cos(a)
+            leader.linear.y=10*np.sqrt(np.cos(2.0*a))*np.sin(a)
             leader.linear.z=1
-            leader.angular.z=(t/100.0)*(2*np.pi)
+            leader.angular.z=np.arctan2(-np.cos(3*a)/np.sqrt(np.cos(2*a)), np.sin(3*a)/np.sqrt(np.cos(2*a)))
     elif m==3:
         if t==50:
             m=0
             t=0.0
         else:
             t=t+1
-            leader.linear.x=9-t/10
-            leader.linear.y=5-t/10
+            leader.linear.x=0
+            leader.linear.y=0
             leader.linear.z=1
-            leader.angular.z=0
+            leader.angular.z=-np.pi/4
 
     else:
         leader.linear.x=2
@@ -72,6 +73,5 @@ while not rospy.is_shutdown():
         leader.linear.z=1
         leader.angular.z=np.pi
     pub_ref.publish(leader)
-    
     
     rate.sleep()

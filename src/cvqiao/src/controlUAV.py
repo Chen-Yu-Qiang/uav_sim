@@ -13,7 +13,7 @@ if __name__ == '__main__':
     pub_emergency = rospy.Publisher('tello/emergency', Empty, queue_size=10)
     pub_land = rospy.Publisher('tello/land', Empty, queue_size=10)
     pub_takeoff = rospy.Publisher('tello/takeoff', Empty, queue_size=10)
-    pub_ref_cmd = rospy.Publisher('ref_cmd', Int32, queue_size=10)
+    pub_ref_cmd = rospy.Publisher('/ref_cmd', Int32, queue_size=10)
     rospy.init_node('controlUAV', anonymous=True)
     while not rospy.is_shutdown():
         incom=raw_input("input command\n t=takeoff \n l=land \n e=emergency\n $??")
