@@ -113,7 +113,7 @@ class Worker(threading.Thread):
             if ids.__str__() == "None":
                 continue
             for i in range(len(ids)):
-                if ids[i] > 20:
+                if ids[i] >= 20:
                     continue
                 a = Marker()
                 a.id = ids[i]

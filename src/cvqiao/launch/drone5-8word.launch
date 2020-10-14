@@ -2,7 +2,7 @@
 <launch>
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find cvg_sim_gazebo)/worlds/markerworld2.world"/>
+        <arg name="world_name" value="$(find cvg_sim_gazebo)/worlds/markerworld3.world"/>
     </include>
     <node pkg="cvqiao" type="genFront8wordRef.py" name="genLeaderRef" output="screen"/>
     <node pkg="cvqiao" type="genBackRef.py" name="genFollowerRef" output="screen"/>
@@ -97,7 +97,7 @@
             <arg name="tf_prefix" value="/drone1"/>
             <arg name="namespace" value="/drone1"/>
         </include>
-	<include file="$(find cvqiao)/launch/test1sim.launch">
+	<include file="$(find cvqiao)/launch/test1sim_noMarkerWall.launch">
         <arg name="px_init" value="0"/>
         <arg name="py_init" value="0"/>
         <arg name="pz_init" value="0"/>

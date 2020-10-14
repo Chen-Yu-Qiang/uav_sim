@@ -27,7 +27,10 @@ def callback_Marker(data):
             x, y, z, th = getEachMean(last_t)
             if not (x, y, z, th) == (0, 0, 0, 0):
                 outmsg=PoseStamped()
-                outmsg.header=marker_data[last_t][0].header
+                try:
+                    outmsg.header=marker_data[last_t][0].header
+                except:
+                    pass
                 outmsg.pose.position.x=x
                 outmsg.pose.position.y=y
                 outmsg.pose.position.z=z
@@ -59,7 +62,7 @@ def getEachMean(t):
     outmsg.pose.position.y=np.std(y)
     outmsg.pose.position.z=np.std(z)
     mix_marker_std_pub.publish(outmsg)
-    if np.std(x) > MARKER_STD_TH or np.std(y) > MARKER_STD_TH or np.std(z) > MARKER_STD_TH:
+    if len(x)<2 or len(y)<2 or len(z)<2 or np.std(x) > MARKER_STD_TH or np.std(y) > MARKER_STD_TH or np.std(z) > MARKER_STD_TH:
         return 0, 0, 0, 0
     return np.mean(x), np.mean(y), np.mean(z), np.mean(th)
 

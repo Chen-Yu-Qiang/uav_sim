@@ -127,7 +127,7 @@ while not rospy.is_shutdown():
             else:
                 break
         marker_N = len(x_Marker_sel)
-        print(marker_N)
+        #print(marker_N)
     elif len(imu_data_copy["t"])>0:
         for i in range(len(imu_data_copy["t"])-1, 0, -1):
             if imu_data_copy["t"][i] >= imu_data_copy["t"][-1]-TIMELONG:
