@@ -24,7 +24,7 @@ while not rospy.is_shutdown():
     if m==-1:
         continue
     elif m==0:
-         if t==150:
+        if t==100:
             m=1
             t=0.0
         else:
@@ -32,7 +32,7 @@ while not rospy.is_shutdown():
             leader.linear.x=0
             leader.linear.y=0
             leader.linear.z=1
-            leader.angular.z=-np.pi/4*(t/150)
+            leader.angular.z=-np.pi/4
             theta=-np.pi/4
     elif m==1:
         theta=theta+0.1*0.05*np.sqrt(np.cos(2*theta))
@@ -57,8 +57,8 @@ while not rospy.is_shutdown():
             leader.linear.z=1
             leader.angular.z=np.arctan2(-np.cos(3*a)/np.sqrt(np.cos(2*a)), np.sin(3*a)/np.sqrt(np.cos(2*a)))
     elif m==3:
-        if t==100:
-            m=1
+        if t==50:
+            m=0
             t=0.0
         else:
             t=t+1
@@ -66,7 +66,6 @@ while not rospy.is_shutdown():
             leader.linear.y=0
             leader.linear.z=1
             leader.angular.z=-np.pi/4
-            theta=-np.pi/4
 
     else:
         leader.linear.x=2

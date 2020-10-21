@@ -147,7 +147,7 @@ while not rospy.is_shutdown():
     if imu_N == 0:
         last_t=time.time()
         continue
-    elif marker_N < 5:
+    elif marker_N < 500:
         #filter_x_imu = imu_data_copy["x"][-1]
         #filter_y_imu = imu_data_copy["y"][-1]
         #filter_z_imu = imu_data_copy["z"][-1]

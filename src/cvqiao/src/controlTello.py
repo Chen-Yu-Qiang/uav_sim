@@ -117,8 +117,8 @@ cmd_t=0
 cmdmsg = Twist()
 while not rospy.is_shutdown():
     if already_takeoff:
-        kp = 1
-        ki = 0
+        kp = 2
+        ki = 0.001
         kd = 0
         err_d_x = err_x
         err_x = x
@@ -126,9 +126,6 @@ while not rospy.is_shutdown():
         err_d_x = x-err_d_x
         cmd_x = kp*err_x+ki*err_i_x+kd*err_d_x
 
-        kp = 1
-        ki = 0
-        kd = 0
         err_d_y = err_y
         err_y = y
         err_i_y = err_i_y+y

@@ -23,7 +23,7 @@
             <arg name="namespace" value="/drone1"/>
         </include>
 	
-    <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="str_log /gazebo/model_states cmd_vel err cmd_world mixIMUMarker mixMarker genRef from_IMU tello/odom mixMarkerSTD marker_0 marker_1 marker_2 marker_3 marker_4 marker_5 marker_6 cam_from_all_marker cam_from_marker_0 cam_from_marker_1 cam_from_marker_2 cam_from_marker_3 cam_from_marker_4 cam_from_marker_5 cam_from_marker_6 -o drone1"/>
+    <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="str_log /gazebo/model_states cmd_vel err cmd_world mixIMUMarker mixMarker genRef from_IMU tello/odom ardrone/navdata mixMarkerSTD marker_0 marker_1 marker_2 marker_3 marker_4 marker_5 marker_6 cam_from_all_marker cam_from_marker_0 cam_from_marker_1 cam_from_marker_2 cam_from_marker_3 cam_from_marker_4 cam_from_marker_5 cam_from_marker_6 -o drone1"/>
 
     </group>
 

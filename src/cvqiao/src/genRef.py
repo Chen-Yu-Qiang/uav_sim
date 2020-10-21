@@ -24,7 +24,7 @@ def job():
 
 rospy.init_node('genRef', anonymous=True)
 pub_ref = rospy.Publisher('genRef', Twist, queue_size=1)
-rospy.Subscriber('ref_cmd', Int32, cb_updata_ref)
+rospy.Subscriber('/ref_cmd', Int32, cb_updata_ref)
 rate = rospy.Rate(10)
 #t = threading.Thread(target = job)
 #t.start()
@@ -35,7 +35,7 @@ while not rospy.is_shutdown():
         continue
     elif m==0:
         if t==100:
-            m=1
+            m=2
             t=0.0
         else:
             t=t+1
@@ -68,12 +68,12 @@ while not rospy.is_shutdown():
             refmsg.linear.z=1
             refmsg.angular.z=np.pi
     elif m==3:
-        if t==80:
+        if t==40:
             m=4
             t=0.0
         else:
             t=t+1
-            refmsg.linear.x=t/10+2
+            refmsg.linear.x=t/5+2
             refmsg.linear.y=0
             refmsg.linear.z=1
             refmsg.angular.z=np.pi
@@ -88,12 +88,12 @@ while not rospy.is_shutdown():
             refmsg.linear.z=1
             refmsg.angular.z=np.pi
     elif m==5:
-        if t==80:
-            m=6
+        if t==40:
+            m=200
             t=0.0
         else:
             t=t+1
-            refmsg.linear.x=-(t/10)+10
+            refmsg.linear.x=-(t/5)+10
             refmsg.linear.y=0
             refmsg.linear.z=1
             refmsg.angular.z=np.pi
