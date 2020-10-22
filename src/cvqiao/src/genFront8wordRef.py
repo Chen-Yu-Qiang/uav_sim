@@ -24,7 +24,7 @@ while not rospy.is_shutdown():
     if m==-1:
         continue
     elif m==0:
-         if t==150:
+        if t==150:
             m=1
             t=0.0
         else:

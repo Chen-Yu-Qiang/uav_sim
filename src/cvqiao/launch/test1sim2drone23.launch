@@ -51,7 +51,7 @@
     </node>
 
 
-    <node pkg="cvqiao" type="controlTello.py" name="controlTello" />
+    <node pkg="cvqiao" type="controlTello23.py" name="controlTello" />
     <!--<node pkg="cvqiao" type="genRef.py" name="genRef" output="screen"/>
     <node pkg="cvqiao" type="controlUAV.py" name="controlUAV" output="screen" launch-prefix="xterm -geometry 150x20+0+0 -e" />-->
     <node pkg="cvqiao" type="getErr.py" name="getErr" output="screen"/>
