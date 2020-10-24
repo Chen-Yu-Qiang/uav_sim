@@ -193,7 +193,7 @@ while not rospy.is_shutdown():
             cmdmsg.linear.x = np.sin(theta)*cmd_x-np.cos(theta)*cmd_y+leader_cmd_msg.linear.x+leader_cmd_msg.angular.z*dddd
             cmdmsg.linear.y = np.cos(theta)*cmd_x+np.sin(theta)*cmd_y+leader_cmd_msg.linear.y
             cmdmsg.linear.z = cmd_z
-            cmdmsg.angular.z = cmd_t#+leader_cmd_msg.angular.z
+            cmdmsg.angular.z = cmd_t+leader_cmd_msg.angular.z
             #cmdmsg.linear.x = 1
             #cmdmsg.linear.y = 0
             #cmdmsg.linear.z = 0
