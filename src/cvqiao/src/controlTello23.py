@@ -124,7 +124,7 @@ cmd_t=0
 cmdmsg = Twist()
 while not rospy.is_shutdown():
     if already_takeoff:
-        kp = 1
+        kp = 2
         ki = 0
         kd = 0
         err_d_x = err_x
@@ -188,11 +188,12 @@ while not rospy.is_shutdown():
             #   {c}  s  -c   0   {w}
             #     p=[c   s   0] *  p
             #        0   0   1
-
-            cmdmsg.linear.x = np.sin(theta)*cmd_x-np.cos(theta)*cmd_y+leader_cmd_msg.linear.x
+            #TODO 
+            dddd=np.sqrt((ref_x+x)*(ref_x+x)+(ref_y+y)*(ref_y+y))
+            cmdmsg.linear.x = np.sin(theta)*cmd_x-np.cos(theta)*cmd_y+leader_cmd_msg.linear.x+leader_cmd_msg.angular.z*dddd
             cmdmsg.linear.y = np.cos(theta)*cmd_x+np.sin(theta)*cmd_y+leader_cmd_msg.linear.y
             cmdmsg.linear.z = cmd_z
-            cmdmsg.angular.z = cmd_t+leader_cmd_msg.angular.z
+            cmdmsg.angular.z = cmd_t#+leader_cmd_msg.angular.z
             #cmdmsg.linear.x = 1
             #cmdmsg.linear.y = 0
             #cmdmsg.linear.z = 0

@@ -58,7 +58,7 @@ while not rospy.is_shutdown():
             leader.angular.z=np.arctan2(-np.cos(3*a)/np.sqrt(np.cos(2*a)), np.sin(3*a)/np.sqrt(np.cos(2*a)))
     elif m==3:
         if t==100:
-            m=1
+            m=3
             t=0.0
         else:
             t=t+1
