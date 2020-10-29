@@ -190,8 +190,8 @@ while not rospy.is_shutdown():
             #        0   0   1
             #TODO 
             dddd=np.sqrt((ref_x+x)*(ref_x+x)+(ref_y+y)*(ref_y+y))
-            cmdmsg.linear.x = np.sin(theta)*cmd_x-np.cos(theta)*cmd_y+leader_cmd_msg.linear.x+leader_cmd_msg.angular.z*dddd
-            cmdmsg.linear.y = np.cos(theta)*cmd_x+np.sin(theta)*cmd_y+leader_cmd_msg.linear.y
+            cmdmsg.linear.x = np.sin(theta)*cmd_x-np.cos(theta)*cmd_y+leader_cmd_msg.linear.x+leader_cmd_msg.angular.z*dddd*0.9486
+            cmdmsg.linear.y = np.cos(theta)*cmd_x+np.sin(theta)*cmd_y+leader_cmd_msg.linear.y-leader_cmd_msg.angular.z*dddd*0.3162
             cmdmsg.linear.z = cmd_z
             cmdmsg.angular.z = cmd_t+leader_cmd_msg.angular.z
             #cmdmsg.linear.x = 1
