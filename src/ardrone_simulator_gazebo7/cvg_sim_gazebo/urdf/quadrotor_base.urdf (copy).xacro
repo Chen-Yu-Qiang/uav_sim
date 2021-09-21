@@ -47,11 +47,42 @@ xmlns:xacro="http://ros.org/wiki/xacro"
  	        <parent link="${prefix}_base_link"/>
           <child link="${prefix}_dummy_link"/>
     </joint>
+    <link name='${prefix}_link_0'>
+	    <inertial>
+	     <origin xyz="0 0 0.5" rpy="0 0 0"/>
+	     <mass value="0.00000"/>
+	     <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+	   </inertial>
+
+	   <visual>
+	     <origin xyz="-0.3 0 0" rpy="0 0 0" />
+	     <geometry>
+	       <box size="0.01 0.6 0.3" />
+	     </geometry>
+     <material name="Cyan">
+       <color rgba="0 1.0 1.0 1.0"/>
+     </material>
+	   </visual>
+
+	   <collision>
+	     <origin xyz="0 0 0" rpy="0 0 0"/>
+	     <geometry>
+	       <box size="0.01 0.1 0.1" />
+	     </geometry>
+	   </collision>
+    </link>
+    <joint name="${prefix}_marker_joint" type="fixed">
+ 	        <parent link="${prefix}_base_link"/>
+          <child link='${prefix}_link_0'/>
+    </joint>
+
 
     <gazebo reference="${prefix}_base_link">
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
-
+    <gazebo reference="${prefix}_link_0">
+        <material value="RepeatedTexture${markerNO}"/>
+    </gazebo>
 
     <!-- Gazebo Plugins -->
     <quadrotor_plugins prefix="${prefix}"/>

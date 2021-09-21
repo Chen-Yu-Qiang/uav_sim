@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- <arg name="world_name" value="$(find cvg_sim_gazebo)/worlds/markerworld.world"/> -->
+    </include>
+
+    <group ns="drone1">
+
+        <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
+            <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_with_sensors.urdf.xacro"/>
+            <arg name="model_name" value="drone1"/>
+            <arg name="x" value="2"/>
+            <arg name="y" value="-1"/>
+            <arg name="z" value="0"/>
+            <arg name="Y" value="3.14159"/>
+            <arg name="tf_prefix" value="/drone1"/>
+            <arg name="namespace" value="/drone1"/>
+        </include>
+	
+
+        <node pkg="cvqiao" type="tf_topic_new.py" name="tf_topic" output="screen"/>
+        <param name="isSIM" value="0"/>
+        <node pkg="mtma" type="control_val_node_kf.py" name="control_val_node_kf" output="screen"/>
+        <node pkg="mtma" type="ref_filter.py" name="ref_filter" output="screen"/>
+        <node pkg="mtma" type="merge_box_node.py" name="merge_box_node" output="screen"/>
+        <node pkg="mtma" type="imuint.py" name="imuint" output="screen"/>
+        <node pkg="mtma" type="local_planner.py" name="local_planner" output="screen"/>
+        <!-- <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="-e '/drone1/(.*)' -x '/drone(.*)/tello_raw' -o 'drone1'" /> -->
+    </group>
+
+
+
+    <group ns="drone2">
+
+        <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
+            <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_with_sensors.urdf.xacro"/>
+            <arg name="model_name" value="drone2"/>
+            <arg name="x" value="2"/>
+            <arg name="y" value="1"/>
+            <arg name="z" value="0"/>
+            <arg name="Y" value="3.14159"/>
+            <arg name="tf_prefix" value="/drone2"/>
+            <arg name="namespace" value="/drone2"/>
+        </include>
+	
+
+        <node pkg="cvqiao" type="tf_topic_new.py" name="tf_topic" output="screen"/>
+
+        <param name="isSIM" value="0"/>
+        <node pkg="mtma" type="control_val_node_kf.py" name="control_val_node_kf" output="screen"/>
+        <node pkg="mtma" type="ref_filter.py" name="ref_filter" output="screen"/>
+        <node pkg="mtma" type="merge_box_node.py" name="merge_box_node" output="screen"/>
+        <node pkg="mtma" type="imuint.py" name="imuint" output="screen"/>
+        <node pkg="mtma" type="local_planner.py" name="local_planner" output="screen"/>
+        <!-- <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="-e '/drone2/(.*)' -x '/drone(.*)/tello_raw' -o 'drone2'" /> -->
+
+    </group>
+    <param name="isSIM" value="1"/>
+
+    <node pkg="cvqiao" type="tf_kf.py" name="tf_kf" output="screen"/>
+    <node pkg="mtma" type="target_kf.py" name="target_kf" output="screen"/>
+    <!-- <node pkg="mtma" type="plan_wp.py" name="plan_wp" output="screen"/> -->
+    <!-- <node pkg="mtma" type="switch_plan_wp.py" name="switch_plan_wp" output="screen"/> -->
+    <node pkg="mtma" type="plan_wp_sim.py" name="plan_wp_sim" output="screen"/>
+    <node pkg="mtma" type="switch_and_plan.py" name="switch_and_plan" output="screen"/>
+    <node pkg="mtma" type="out_ref.py" name="out_ref" output="screen"/>
+    <!-- <node pkg="mtma" type="all_ref_node.py" name="all_ref_node" output="screen"/> -->
+    <node pkg="mtma" type="control_op_node.py" name="control_op_node" output="screen"  launch-prefix="xterm -geometry 150x20+1000+0 -e" />
+    <!-- <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="-a -x '/drone(.*)/tello_raw'"/> -->
+    <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="-a" />
+
+</launch>
