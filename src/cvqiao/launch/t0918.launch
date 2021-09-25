@@ -2,7 +2,7 @@
 <launch>
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <!-- <arg name="world_name" value="$(find cvg_sim_gazebo)/worlds/markerworld.world"/> -->
+        <arg name="world_name" value="$(find cvg_sim_gazebo)/worlds/twoTarget.world"/>
     </include>
 
     <group ns="drone1">
@@ -10,10 +10,10 @@
         <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
             <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_with_sensors.urdf.xacro"/>
             <arg name="model_name" value="drone1"/>
-            <arg name="x" value="2"/>
-            <arg name="y" value="-1"/>
+            <arg name="x" value="5"/>
+            <arg name="y" value="3.5"/>
             <arg name="z" value="0"/>
-            <arg name="Y" value="3.14159"/>
+            <arg name="Y" value="4.7124"/>
             <arg name="tf_prefix" value="/drone1"/>
             <arg name="namespace" value="/drone1"/>
         </include>
@@ -36,10 +36,10 @@
         <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
             <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_with_sensors.urdf.xacro"/>
             <arg name="model_name" value="drone2"/>
-            <arg name="x" value="2"/>
-            <arg name="y" value="1"/>
+            <arg name="x" value="-1.5"/>
+            <arg name="y" value="2.5"/>
             <arg name="z" value="0"/>
-            <arg name="Y" value="3.14159"/>
+            <arg name="Y" value="3.1415"/>
             <arg name="tf_prefix" value="/drone2"/>
             <arg name="namespace" value="/drone2"/>
         </include>
@@ -60,12 +60,11 @@
 
     <node pkg="cvqiao" type="tf_kf.py" name="tf_kf" output="screen"/>
     <node pkg="mtma" type="target_kf.py" name="target_kf" output="screen"/>
-    <!-- <node pkg="mtma" type="plan_wp.py" name="plan_wp" output="screen"/> -->
-    <!-- <node pkg="mtma" type="switch_plan_wp.py" name="switch_plan_wp" output="screen"/> -->
-    <node pkg="mtma" type="plan_wp_sim.py" name="plan_wp_sim" output="screen"/>
-    <node pkg="mtma" type="switch_and_plan.py" name="switch_and_plan" output="screen"/>
-    <node pkg="mtma" type="out_ref.py" name="out_ref" output="screen"/>
-    <!-- <node pkg="mtma" type="all_ref_node.py" name="all_ref_node" output="screen"/> -->
+    <node pkg="mtma" type="target_sim.py" name="target_sim" output="screen"/>
+    <node pkg="mtma" type="global_planner.py" name="global_planner" output="screen"/>
+    <node pkg="mtma" type="plan_angle.py" name="plan_angle" output="screen"/>
+    <node pkg="mtma" type="schedule.py" name="schedule" output="screen"/>
+    <!-- <node pkg="mtma" type="schedule_noplan.py" name="schedule_noplan" output="screen"/> -->
     <node pkg="mtma" type="control_op_node.py" name="control_op_node" output="screen"  launch-prefix="xterm -geometry 150x20+1000+0 -e" />
     <!-- <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="-a -x '/drone(.*)/tello_raw'"/> -->
     <node pkg="rosbag" type="record" name="myrosbag"  output="screen" args="-a" />

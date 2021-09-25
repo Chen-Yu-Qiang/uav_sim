@@ -76,5 +76,7 @@ rate=rospy.Rate(30)
 time.sleep(2)
 while not rospy.is_shutdown():
     for i in range(len(pub_p_kf_list)):
+        if msg_p_kf_list[i].linear.x*msg_p_kf_list[i].linear.y*msg_p_kf_list[i].linear.z==0:
+            continue
         pub_p_kf_list[i].publish(msg_p_kf_list[i])
     rate.sleep()
